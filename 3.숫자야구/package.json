@@ -10,7 +10,9 @@
   "author": "eunseo",
   "license": "ISC",
   "dependencies": {
-    "vue": "^3.2.40"
+    "@types/node": "^18.8.0",
+    "vue": "^3.2.40",
+    "vue-router": "^2.8.1"
   },
   "devDependencies": {
     "vue-loader": "^17.0.0",

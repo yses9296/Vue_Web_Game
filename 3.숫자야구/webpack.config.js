@@ -3,6 +3,11 @@ const { VueLoaderPlugin } = require('vue-loader')
 const path = require('path');
 
 module.exports = {
+    mode: 'development',
+    devtool: 'eval', //eval 하는 이유 build 할 때 속도 업
+    resolve: {
+        extensions: ['.js', '.vue']
+    },
     entry: {
         app: path.join(__dirname, 'main.js'),
     },

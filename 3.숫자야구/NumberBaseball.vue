@@ -5,7 +5,6 @@
             <input maxlength="4" v-model="value" ref="answer">
             <button>Submit</button>
         </form>
-        <div>Try: {{}}</div>
     </div>
 </template>
 <script>
