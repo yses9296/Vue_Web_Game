@@ -4,14 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구구단 튜토리얼 #01-1</title>
+    <title>구구단 튜토리얼 #01-3</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root">
+        <div>{{num1}} X <span>{{num2}}</span> =</div>
+        <form v-on:submit="calculation">
+            <input type="number" v-model="value" ref="answer">
+            <button type="submit">Submit</button>
+        </form>
+        <div>value in Vue : {{value}}</div>
+        <div id="result">Result: {{result}}</div>
+
+    </div>
 
     <script>
-        
+        const app = new Vue({
+            el: '#root',
+            data: {
+                num1: Math.ceil(Math.random() * 9),
+                num2: Math.ceil(Math.random() * 9),
+                value: '',
+                result: '',
+            },
+            methods: {
+                calculation(e){
+                    e.preventDefault();
+                    if(this.num1 * this.num2 === parseInt(this.value)){
+                        this.result = this.num1 +' X ' + this.num2 + ' = ' + this.value +' is Correct!';
+                        this.num1 = Math.ceil(Math.random() * 9);
+                        this.num2 = Math.ceil(Math.random() * 9);
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    }
+                    else {
+                        this.result = 'Failed, Try it again';
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    }
+                }
+            }
+        })
     </script>
 </body>
 </html>
