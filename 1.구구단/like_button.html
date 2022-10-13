@@ -9,8 +9,9 @@
 </head>
 <body>
     <div id="root">
-        <button v-on:click="onClickButton">Like</button>
-        <div v-if="liked">Like Cliked</div>
+        <div v-if="liked">Like Clicked</div>
+        <button v-else v-on:click="onClickButton">Like</button>
+
     </div>
 
     <script>
