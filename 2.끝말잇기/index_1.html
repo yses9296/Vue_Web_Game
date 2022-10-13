@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기 튜토리얼 #01-5</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <p>{{word}}</p>
+        <form v-on:submit="onSubmitForm">
+            <input type="text" v-model="value" ref="userInput">
+            <button>Submit</button>
+        </form>
+        <p>{{result}}</p>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: '#root',
+            data: {
+                word: '호랑이',
+                value: '',
+                result: ''
+            },
+            methods: {
+                onSubmitForm(e){
+                    e.preventDefault();
+                    if(this.word[this.word.length-1] === this.value[0]){
+                        this.result = 'Pass';
+                        this.word = this.value;
+                        this.value = '';
+                        this.$refs.userInput.focus();
+                    }
+                    else {
+                        this.result = 'Failed, Try it again';
+                        this.value = '';
+                        this.$refs.userInput.focus();
+                    }
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
