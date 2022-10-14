@@ -6,7 +6,7 @@
             <button type="submit">Submit</button>
         </form>
         <div>Try: {{tries.length}}</div>
-        <div>Answer is : {{answer}}</div>
+        <!-- <div>Answer is : {{answer}}</div> -->
         <ul>
             <li v-for="t in tries">
                 <p>{{t.try}}</p>
@@ -51,7 +51,7 @@
                 }
                 else {
                     if(this.tries.length >= 9) { //10번째 시도
-                        this.result = `You tried over ten times! The answer wass ${this.answer.join('')}`;
+                        this.result = `You tried over ten times! The answer was ${this.answer.join('')}`;
                         this.answer = getNumbers();
                         this.value = '';
                         this.tries = [];
