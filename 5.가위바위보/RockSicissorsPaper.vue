@@ -11,12 +11,24 @@
         </div>
 </template>
 <script>
+
     // background-position 설정
     const rspCoords = {
         Rock: '0',
-        Sicissor: '-142px',
-        Paper: '-284px'
+        Sicissor: '-136px',
+        Paper: '-266px'
     }
+    const scores = {
+        Sicissor: 1,
+        Rock: 0,
+        Paper: -1
+    }
+    const computerChoice = (imgCoord) => {
+        return Object.entries(rspCoords).find( (v) => {
+            return v[1] === imgCoord;
+        })[0];
+    }
+    let interval = null;
     export default {
         data(){
             return {
@@ -28,15 +40,66 @@
         computed: {
             computedStyleObj(){ 
                 return{
-                    backgroundImage: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${this.imgCoord} 0`
+                    background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${this.imgCoord} 0`
                 }
             }
         },
         methods: {
+            changeHand(){
+                interval = setInterval(() => { //바위에서 가위, 가위에서 보, 보에서 바위로 이미지를 계속해서 변경
+                    if(this.imgCoord === rspCoords.Rock){
+                        this.imgCoord = rspCoords.Sicissor
+                    }            
+                    else if(this.imgCoord === rspCoords.Sicissor){
+                        this.imgCoord = rspCoords.Paper
+                    }            
+                    else if(this.imgCoord === rspCoords.Paper){
+                        this.imgCoord = rspCoords.Rock
+                    }            
+                }, 100);
+            },
             onClickButton(value){
+                clearInterval(interval);
+                const myScore = scores[value];
+                const cpuScore = scores[computerChoice(this.imgCoord)];
+                const diff = myScore - cpuScore;
 
+                console.log("myScore", myScore);
+                console.log("cpuScore", cpuScore);
+                if(diff === 0){
+                    this.result = 'Same'
+                }
+                else if( [-1, 2].includes(diff)){
+                    this.result = 'You win';
+                    this.score += 1;
+                }
+                else {
+                    this.result = 'You lose';
+                    this.score -= 1;
+                }
+                setTimeout( () => {
+                    this.changeHand();
+                }, 700)
             }
-        }
+        },
+        beforeCreate(){},
+        created(){
+
+        },
+        beforeMounte(){},
+        mounted(){
+            this.changeHand();
+        },
+        beforeUpdate(){},
+        updated(){
+
+        },
+        beforeDestroy(){
+            clearInterval(interval); //쓸데없는 코드 정지
+        },
+        destroyed(){
+
+        },
     }
 </script>
 <style scoped>
@@ -56,7 +119,7 @@
         padding: 5px 10px;
     }
     #computer {
-        width: 150px; height: 230px;
+        width: 148px; height: 230px;
         margin: 0 auto;
     }
 </style>
