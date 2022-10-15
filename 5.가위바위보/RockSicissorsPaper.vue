@@ -64,10 +64,6 @@
                 const cpuScore = scores[computerChoice(this.imgCoord)];
                 const diff = myScore - cpuScore;
 
-                console.log("scores array", scores);
-                console.log("myScore", myScore);
-                console.log("cpuScore", cpuScore);
-
                 if(diff === 0){
                     this.result = 'Same'
                 }
