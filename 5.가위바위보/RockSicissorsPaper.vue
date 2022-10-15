@@ -1,6 +1,6 @@
 <template>
     <div id="container">
-        <div id="computer" :style="{ backgroundImage: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg)`}"></div>
+        <div id="computer" :style="computedStyleObj"></div>
             <div class="controller">
                 <button @click="onClickButton('Rock')">Rock</button>
                 <button @click="onClickButton('Sicissor')">Sicissor</button>
@@ -11,15 +11,26 @@
         </div>
 </template>
 <script>
+    // background-position 설정
+    const rspCoords = {
+        Rock: '0',
+        Sicissor: '-142px',
+        Paper: '-284px'
+    }
     export default {
         data(){
             return {
+                imgCoord: rspCoords.Rock,
                 result: '',
                 score: 0
             }
         },
         computed: {
-
+            computedStyleObj(){ 
+                return{
+                    backgroundImage: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${this.imgCoord} 0`
+                }
+            }
         },
         methods: {
             onClickButton(value){
