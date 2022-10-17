@@ -1,14 +1,36 @@
 <template>
-    <div class="ball" :style="{ background }">{{number}}</div>
+    <div class="ball" :style="setBackground">{{number}}</div>
 </template>
 <script>
     export default {
         name: 'LottoBall',
-        props: ['number'],
-        data() {
-            let background;
-            return {
-                background,
+        props: {
+            number: Number,
+        },
+        computed: {
+            setBackground(){
+                let background, color;
+                if(this.number <= 10){
+                    background = 'red';
+                    color = 'white';
+                }
+                else if(this.number <= 20){
+                    background = 'orange';
+                }
+                else if(this.number <= 30){
+                    background ='yellow';
+                }
+                else if(this.number <= 40){
+                    background = 'blue';
+                    color = 'white';
+                }
+                else{
+                    background = 'green';
+                    color = 'white';
+                }
+                return {
+                    background, color
+                }
             }
         }
     }

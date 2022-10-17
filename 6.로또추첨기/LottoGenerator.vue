@@ -27,7 +27,7 @@
 
         return [...winNumbers, bonusNumber]; //일반 로또 번호 6개 + 보너스 숫자 1개
     }
-
+    const timeouts = [];
     export default {
         components: {
             'lotto-ball': LottoBall //import 하기
@@ -49,15 +49,15 @@
                 this.winBalls = [];
                 this.bonus = null;
                 this.redo = false;
-                this.displayBall();
+                // this.displayBall();
             },
             displayBall(){
                 for ( let i = 0; i < this.winNumbers.length -1; i++ ){
-                    setTimeout( () => {
+                    timeouts[i] = setTimeout( () => {
                         this.winBalls.push(this.winNumbers[i]);
                     }, (i+1)*1000)
                 } //1초에 숫자 하나씩 표현
-                setTimeout( ()=>{
+                timeouts[6] = setTimeout( ()=>{
                     this.bonus = this.winNumbers[6];
                     this.redo = true;
                 }, 7000)
@@ -66,9 +66,17 @@
         mounted(){
             this.displayBall();
         },
-        beforeDestroy(){},
+        beforeDestroy(){
+            timeouts.forEach( (t) => {
+                clearTimeout(t);
+            }) //데이터 누수를 방지하기 위해 setTimeout을 claerTimeout 마무리 해주기
+        },
         watch: {
-
+            winBalls(val, oldVal){
+                if(val.length === 0){ //winBalls배열이 초기화되었을 떄
+                    this.displayBall();
+                }
+            }
         },
     }
 </script>
