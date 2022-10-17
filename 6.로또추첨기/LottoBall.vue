@@ -18,7 +18,7 @@
         display: inline-block;
         width: 40px; height: 40px;
         line-height: 40px;
-        border: 2px solid #000;
+        border: 1px solid #000;
         border-radius: 50%;
         font-size: 20px;
         text-align: center;

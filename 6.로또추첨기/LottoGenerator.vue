@@ -3,17 +3,18 @@
         <div>
             <p>당첨 숫자</p>
             <div id="result_container">
-                <lotto-ball v-for="ball in winBalls" number="5"></lotto-ball>
+                <lotto-ball v-for="ball in winBalls" :key="ball" :number="ball"></lotto-ball>
             </div>
         </div>
         <div>
             <p>Bonus!</p>
-            <lotto-ball v-if="bonus"></lotto-ball>
-            <button v-if="redo">Try it again</button>
+            <lotto-ball v-if="bonus" :number="bonus"></lotto-ball>
+            <button v-if="redo" @click="onClickRedo">Try it again</button>
         </div>
     </div>
 </template>
 <script>
+    import LottoBall from './LottoBall';
     function getWinNumbers(){
         const candidate = Array(45).fill().map( (v, i) => i + 1); // 1,2,3, ...44, 45 값을 배열에 저장
         const shuffle = [];
@@ -24,8 +25,9 @@
         const bonusNumber = shuffle[shuffle.length - 1]; //shuffle의 맨 마지막 숫자
         const winNumbers = shuffle.slice(0, 6).sort( (p, c) => p - c);
 
-        return [...winNumbers, bonusNumber];
+        return [...winNumbers, bonusNumber]; //일반 로또 번호 6개 + 보너스 숫자 1개
     }
+
     export default {
         components: {
             'lotto-ball': LottoBall //import 하기
@@ -42,9 +44,28 @@
 
         },
         methods: {
-
+            onClickRedo(){
+                this.winNumbers = getWinNumbers();
+                this.winBalls = [];
+                this.bonus = null;
+                this.redo = false;
+                this.displayBall();
+            },
+            displayBall(){
+                for ( let i = 0; i < this.winNumbers.length -1; i++ ){
+                    setTimeout( () => {
+                        this.winBalls.push(this.winNumbers[i]);
+                    }, (i+1)*1000)
+                } //1초에 숫자 하나씩 표현
+                setTimeout( ()=>{
+                    this.bonus = this.winNumbers[6];
+                    this.redo = true;
+                }, 7000)
+            }
         },
-        mounted(){},
+        mounted(){
+            this.displayBall();
+        },
         beforeDestroy(){},
         watch: {
 
@@ -53,8 +74,7 @@
 </script>
 <style scoped>
     #container {
-        width: 300px;
+        width: 500px;
         margin: 0 auto;
-        background-color: #dbdbdb;
     }
 </style>
