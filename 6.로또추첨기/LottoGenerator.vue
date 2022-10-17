@@ -49,7 +49,7 @@
                 this.winBalls = [];
                 this.bonus = null;
                 this.redo = false;
-                // this.displayBall();
+                this.displayBall(); //watch로도 사용가능, 그러나 최대한 watch 사용 자제
             },
             displayBall(){
                 for ( let i = 0; i < this.winNumbers.length -1; i++ ){
@@ -71,13 +71,13 @@
                 clearTimeout(t);
             }) //데이터 누수를 방지하기 위해 setTimeout을 claerTimeout 마무리 해주기
         },
-        watch: {
-            winBalls(val, oldVal){
-                if(val.length === 0){ //winBalls배열이 초기화되었을 떄
-                    this.displayBall();
-                }
-            }
-        },
+        // watch: {
+        //     winBalls(val, oldVal){
+        //         if(val.length === 0){ //winBalls배열이 초기화되었을 떄
+        //             this.displayBall();
+        //         }
+        //     }
+        // },
     }
 </script>
 <style scoped>
