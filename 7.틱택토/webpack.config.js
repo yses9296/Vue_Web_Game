@@ -31,16 +31,6 @@ module.exports = {
         publicPath: '/dist',
     },
     devServer: {
-        // static: {
-        //     directory: path.join(__dirname, 'dist'),
-        // },
-        // devMiddleware: {
-        //     publicPath: '/dist',
-        // },
-
-        // hot: true,
-        // host: "localhost",
-        // port: 8080
         devMiddleware: {
             publicPath: '/dist/'
         },
